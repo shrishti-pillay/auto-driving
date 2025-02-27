@@ -1,3 +1,5 @@
+from queue import Queue
+
 class Car():
     '''
     A class representing the car in the Auto Driving Simulation.
@@ -13,14 +15,22 @@ class Car():
     angle: int
         Angle of the car based on the direction
         Ranges from 0 to 360 
-    moves: list
+    moves: queue
         The list of moves for the simulation for the car across the grid
     
-    
     '''
+
+    ''' Getters and Setters '''
+
     def __init__(self, name: str):
         '''Name is required for Car entity'''
-        self.name = name
+        self._name = name
+        self._collision = False
+
+    def __str__(self):
+        return f'Name: {self._name}, \
+                  X,Y: ({self._x}, {self._y}), \
+                  Direction: {self._direction}'
 
     @property
     def name(self):
@@ -28,14 +38,24 @@ class Car():
         return self._name
     
     @property
-    def pos(self):
-        '''Getter for pos'''
-        return (self._x, self._y)
+    def x(self):
+        '''Getter for x pos'''
+        return self._x
 
-    @pos.setter
-    def pos(self, pos:tuple):
-        '''Setter for pos'''
-        self._x , self._y = pos
+    @x.setter
+    def x(self, x):
+        '''Setter for x pos'''
+        self._x = x
+
+    @property
+    def y(self):
+        '''Getter for y pos'''
+        return self._y
+
+    @x.setter
+    def y(self, y):
+        '''Setter for y pos'''
+        self._y = y
 
     @property
     def direction(self):
@@ -63,10 +83,71 @@ class Car():
         return self._moves
     
     @moves.setter
-    def moves(self, moves):
+    def moves(self, moves: str):
         '''Setter for moves'''
-        self._moves = moves
+
+        # Create fifo queue
+        moves_queue = Queue()
+        for move in moves:
+            Queue.put(move)
+
+        self._moves = moves_queue
+
+    @property
+    def collision(self):
+        '''Getter for collision'''
+        return self._collision
     
+    @collision.setter
+    def collision(self):
+        '''Setter for collision'''
+        self._collision = False
+
+    @property
+    def collision_info(self):
+        '''Getter for collision_info'''
+        return self._collision_info
+    
+    @collision_info.setter
+    def collision_info(self, collision_info: str):
+        '''Setter for collision_info'''
+        self._collision = collision_info
+
+    '''Methods'''
+
+    def get_next_move(self):
+        '''Get next move for the car'''
+        # Raise queue.Empty if queue is empty
+        try:
+            next_move = self._moves.get(block=False, timeout = 0)
+        except Queue.Empty:
+            self._moves.shutdown()
+            return '0'
+        return next_move
+    
+    def validate_coordinates(
+            self, 
+            min_x: int, 
+            min_y: int, 
+            max_x: int, 
+            max_y: int
+        ):
+        ''' Validate the current car co0rdinates 
+            after every move '''
+
+        if (self._x >= min_x) and (self._y >= min_y) and \
+            (self._x <= max_x) and (self._y <= max_y):
+            return True
+        return False
+    
+
+                                        
+
+    
+
+    
+    
+
 
     
 
