@@ -1,7 +1,6 @@
 from classes.car import Car
 from classes.grid import Grid
 
-from validators import validate_choice
 from simulation import *
 
 
