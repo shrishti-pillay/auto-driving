@@ -1,67 +1,44 @@
-from grid import Grid
-from car import Car
-from helper import *
 
-MIN_X = 0
-MAX_X = 0
-
-
+from prompts import *
+    
 
 def main_simulation():
 
-
-    
-    #1
+    # 1
     print("Welcome to auto Driving car Simulation.\n\n")
 
-    #2 
-    grid_coord = input("Please enter the width and height of the simulation fiels in x y format.\n\n")
+    # 2 Initialize grid
+    grid = initialize_grid()
 
-    ''' add grid validation'''
+    # Ask user to add cars
+    # This function will continue asking user to add cars until user runs simulation
+    add_car(grid)
 
-    max_x, max_y = grid_coord.split(' ')
-
-    #3 Set grid dimensions
-    grid = Grid(max_x, max_y)
-    
-    choice = ''
-    
-
-    if len(grid.cars) > 0:
-        choice = input("Please choose from the following options:\n\n[1] Add a car to the field\n[2] Run simulation\n\n")
-
-    ''' add choice validation '''
-
-    if choice == '1' or len(grid.cars) == 0: 
-
-        name = input("Plese enter the name of the car:\n")
-
-        # add car to grid
-        car = Car(name)
-        grid.add_cars(car)
-
-        position = input(f"Please enter initial position of car {name} in x y Direction format.\n\n")
-
-        ''' add car pos validation '''
-
-        x, y, direction = position.split(' ')
-
-        car.x = x
-        car.y = y
-
-        ''' add direction validation'''
-        
-        car.direction = direction
-
-        print(car)
-
-        
-
-
-
-
+    # Options menu 2 (Start over or exit)
+    options_set_2(grid)
+      
 main_simulation()
 
+# def main():
+#     carA = Car('A')
+#     carB = Car('B')
+#     grid = Grid(10,10)
 
-    
+#     carA.x = 1
+#     carA.y = 2
+#     carA.direction = 'N'
+#     carA.angle = DIRECTION[carA.direction]
+#     carA.moves = 'FFRFFFFRRL'
 
+#     carB.x = 7
+#     carB.y = 8
+#     carB.direction = 'W'
+#     carB.angle = DIRECTION[carB.direction]
+#     carB.moves = 'FFLFFFFFFF'
+
+#     grid.add_cars(carA)
+#     grid.add_cars(carB)
+
+#     run_simulation(grid)
+
+#main()
