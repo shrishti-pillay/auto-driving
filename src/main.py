@@ -37,30 +37,7 @@ def start_simulation():
     # until user chooses to run simulation
     add_car(grid)
 
-    # After simulation, ask user to either start over or exit
+    # 3 After simulation, ask user to either start over or exit
     post_simulation_options(grid)
 
-def main():
-    carA = Car('A')
-    carB = Car('B')
-    grid = Grid(10,10)
-
-    carA.x = 1
-    carA.y = 2
-    carA.direction = 'N'
-    carA.angle = DIRECTION[carA.direction]
-    carA.moves = 'FFRFFFFRRL'
-
-    carB.x = 7
-    carB.y = 8
-    carB.direction = 'W'
-    carB.angle = DIRECTION[carB.direction]
-    carB.moves = 'FFLFFFFFFF'
-
-    grid.add_cars(carA)
-    grid.add_cars(carB)
-
-    run_simulation(grid)
-
 start_simulation()
-#main()

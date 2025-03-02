@@ -95,7 +95,7 @@ def run_simulation(grid):
     for car in grid.cars:
         if car.collision == True:
             print(
-                f"- {car.name}, collides with {car.collision_info['collided_with']} at {car.x, car.y} at step {car.collision_info['step']}"
+                f"- {car.name}, collides with {car.collision_info['collided_with']} at ({car.x},{car.y}) at step {car.collision_info['step']}"
             )
         else:
-            print(f" - {car.name}, {car.x ,car.y} {car.direction}\n")
+            print(f"- {car.name}, ({car.x},{car.y}) {car.direction}")

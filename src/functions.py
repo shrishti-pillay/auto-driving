@@ -5,9 +5,7 @@ from run_simulation import *
 from validations import *
 
 
-INITIALIZE_GRID = (
-    "Please enter the width and height of the simulation field in x y format:\n"
-)
+INITIALIZE_GRID = "Please enter the width and height of the simulation field in x y format:\n"
 
 CAR_NAME = "Please enter the name of the car:\n"
 
@@ -53,10 +51,6 @@ def add_car(grid: Grid) -> None:
 
     # get car name
     name = input(CAR_NAME)
-    car = Car(name)
-
-    # add car to grid
-    grid.add_cars(car)
 
     # get x y direction of car
     x, y, direction = get_valid_input(
@@ -67,19 +61,20 @@ def add_car(grid: Grid) -> None:
         max_y=grid.max_y,
     )
 
-    # set x y direction of car
-    car.x = x
-    car.y = y
-    car.direction = direction
-
     # get car angle form direction
-    car.angle = DIRECTION[car.direction]
+    angle = DIRECTION[car.direction]
 
-    car.moves = get_valid_input(
+    moves = get_valid_input(
         prompt=CAR_COMMANDS.format(car.name),
         validation_func=validate_car_commands,
         split_count=1,
     )[0]
+
+    # create car with above user inputs
+    car = Car(name, x, y, angle, direction, moves)
+
+    # add car to grid
+    grid.add_cars(car)
 
     print(f"Your current list of cars are:\n")
 

@@ -27,7 +27,7 @@ class Car:
         Fields: 
             'collided_with': Name of the other car
             'step': moves_count value at the point of collision
-            
+
     Methods:
     ---------
     get_next_move()
@@ -37,14 +37,20 @@ class Car:
 
     """ Getters and Setters """
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, x: int, y: int, direction: str, angle: int, moves: str):
         """Name is required for Car entity"""
         self._name = name
-        self._x = 0
-        self._y = 0
-        self._angle = 0
-        self._direction = ''
-        self._moves = ""
+        self._x = x
+        self._y = y
+        self._direction = direction
+        self._angle = angle
+        self._moves = moves
+
+        # create a fifo queue for moves
+        self._moves_queue = Queue()
+        for move in moves:
+            self._moves_queue.put(move)
+
         self._moves_count = 0
         self._collision = False
         self._collision_info = {}
@@ -112,13 +118,6 @@ class Car:
         """Setter for moves and moves queue"""
 
         self._moves = moves
-
-        # Add a fifo queue to car for commands list
-        moves_queue = Queue()
-        for move in moves:
-            moves_queue.put(move)
-
-        self._moves_queue = moves_queue
 
     @property
     def moves_count(self):
