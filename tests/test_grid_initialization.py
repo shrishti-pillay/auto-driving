@@ -1,5 +1,3 @@
-import pytest
-
 from functions import initialize_grid
 
 from unittest.mock import patch

@@ -1,5 +1,3 @@
-import pytest
-
 from classes.car import Car
 from classes.grid import Grid
 from functions import get_x_y_direction, get_moves

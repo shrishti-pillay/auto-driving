@@ -1,5 +1,3 @@
-import pytest
-
 from classes.grid import Grid
 from classes.car import Car
 
