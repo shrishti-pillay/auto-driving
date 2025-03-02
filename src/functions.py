@@ -38,6 +38,43 @@ def initialize_grid() -> Grid:
     print(f"\nYou have created a field of {max_x} x {max_y}\n")
     return grid
 
+def get_x_y_direction(car: Car, grid: Grid) -> list:
+    ''' 
+    Get x y direction of car 
+    
+    Args:
+        car: Car()
+        grid: Grid()
+
+    Returns: 
+        list with [x, y, direction]
+    '''
+    return get_valid_input(
+        prompt=CAR_X_Y_DIRECTION.format(car.name),
+        validation_func=validate_car_x_y_direction,
+        split_count=3,
+        max_x=grid.max_x,
+        max_y=grid.max_y,
+    )
+
+def get_moves(car: Car) -> str:
+    ''' 
+    Get car commands
+
+    Args:
+        car: Car()
+        grid: Grid()
+
+    Returns: 
+        moves: str
+    '''
+    moves = get_valid_input(
+        prompt=CAR_COMMANDS.format(car.name),
+        validation_func=validate_car_commands,
+        split_count=1,
+    )
+
+    return moves[0]
 
 def add_car(grid: Grid) -> None:
     '''
@@ -45,6 +82,7 @@ def add_car(grid: Grid) -> None:
     
     Args: 
         grid: The current grid
+
     Returns: None
     
     '''
@@ -53,22 +91,12 @@ def add_car(grid: Grid) -> None:
     name = input(CAR_NAME)
 
     # get x y direction of car
-    x, y, direction = get_valid_input(
-        prompt=CAR_X_Y_DIRECTION.format(car.name),
-        validation_func=validate_car_x_y_direction,
-        split_count=3,
-        max_x=grid.max_x,
-        max_y=grid.max_y,
-    )
+    x, y, direction = get_x_y_direction(car, grid)
 
     # get car angle form direction
     angle = DIRECTION[car.direction]
 
-    moves = get_valid_input(
-        prompt=CAR_COMMANDS.format(car.name),
-        validation_func=validate_car_commands,
-        split_count=1,
-    )[0]
+    moves = get_moves(car)
 
     # create car with above user inputs
     car = Car(name, x, y, angle, direction, moves)

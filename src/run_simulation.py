@@ -82,12 +82,13 @@ def run_simulation(grid):
 
                         # add collision info to car
                         car.collision_info = {
-                            "collided_with": ", ".join(
+                            "collided_with": ",".join(
                                 [x.name for x in cars if x != car]
                             ),
                             "step": car.moves_count,
                         }
-                        cars_list.remove(car)
+                        if car in cars_list:
+                            cars_list.remove(car)
 
     # Show result after simulation
     print("\nAfter simulation, the result is:")

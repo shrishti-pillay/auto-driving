@@ -1,5 +1,6 @@
 from queue import Queue
 
+
 class Car:
     """
     A class representing the car in the Auto Driving Simulation.
@@ -20,11 +21,11 @@ class Car:
     moves_count: int
         Index of the move at any instance of the simulation
     collision: bool
-        Attribute is set to True if a collision has occured. 
+        Attribute is set to True if a collision has occured.
         Default value is False
     collision_info: dict
         Collision information of which car the car collided with
-        Fields: 
+        Fields:
             'collided_with': Name of the other car
             'step': moves_count value at the point of collision
 
@@ -37,7 +38,15 @@ class Car:
 
     """ Getters and Setters """
 
-    def __init__(self, name: str, x: int, y: int, direction: str, angle: int, moves: str):
+    def __init__(
+        self,
+        name: str,
+        x: int = 0,
+        y: int = 0,
+        direction: str = "N",
+        angle: int = 0,
+        moves: str = "",
+    ):
         """Name is required for Car entity"""
         self._name = name
         self._x = x

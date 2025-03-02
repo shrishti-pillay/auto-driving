@@ -1,4 +1,4 @@
-from functions import initialize_grid, add_car
+from functions import *
 from classes.grid import Grid
 
 from validations import validate_options_set
