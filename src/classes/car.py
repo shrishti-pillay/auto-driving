@@ -1,6 +1,4 @@
-import queue
 from queue import Queue
-
 
 class Car:
     """
@@ -19,7 +17,22 @@ class Car:
         Ranges from 0 to 360
     moves: queue
         The list of moves for the simulation for the car across the grid
-
+    moves_count: int
+        Index of the move at any instance of the simulation
+    collision: bool
+        Attribute is set to True if a collision has occured. 
+        Default value is False
+    collision_info: dict
+        Collision information of which car the car collided with
+        Fields: 
+            'collided_with': Name of the other car
+            'step': moves_count value at the point of collision
+            
+    Methods:
+    ---------
+    get_next_move()
+        returns the next element in moves queue if its not empty
+        returns None if moves queue is empty
     """
 
     """ Getters and Setters """
@@ -109,12 +122,12 @@ class Car:
 
     @property
     def moves_count(self):
-        """Getter for collision"""
+        """Getter for moves_count"""
         return self._moves_count
 
     @moves_count.setter
     def moves_count(self, moves_count):
-        """Setter for collision"""
+        """Setter for moves_count"""
         self._moves_count = moves_count
 
     @property
@@ -144,16 +157,3 @@ class Car:
             return self._moves_queue.get_nowait()
         except:
             return None
-
-    def validate_coordinates(self, min_x: int, min_y: int, max_x: int, max_y: int):
-        """Validate the current car coordinates
-        after every move"""
-
-        if (
-            (self._x >= min_x)
-            and (self._y >= min_y)
-            and (self._x <= max_x)
-            and (self._y <= max_y)
-        ):
-            return True
-        return False

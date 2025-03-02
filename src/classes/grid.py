@@ -15,11 +15,17 @@ class Grid:
     cars: list
         The list of Car objects in the Grid
 
+    Methods:
+    --------
+    reset_grid:
+        Removes all cars in the cars list
     '''
 
     def __init__(self, max_x: int, max_y: int):
-        self._max_x = int(max_x)
-        self._max_y = int(max_y)
+        self._max_x = max_x
+        self._max_y = max_y
+        self._min_x = 0
+        self._min_y = 0
         self._cars = []
 
     def __str__(self):
@@ -42,6 +48,9 @@ class Grid:
     def max_y(self):
         '''Getter for max_y'''
         return self._max_y
+    
+    '''Methods'''
 
     def reset_grid(self):
         self._cars = []
+
