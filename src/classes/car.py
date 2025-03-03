@@ -1,6 +1,7 @@
 from queue import Queue, Empty
 from dataclasses import dataclass, field
 
+
 @dataclass
 class Car:
     """
@@ -39,9 +40,7 @@ class Car:
         return f"Car({self.name}, Position=({self.x}, {self.y}), Direction={self.direction}, Moves={self.moves})"
 
     def set_moves_queue(self):
-        """Creates or resets the moves queue."""
-        while not self.moves_queue.empty():
-            self.moves_queue.get()  # Clear queue
+        """Creates the moves queue."""
         for move in self.moves:
             self.moves_queue.put(move)
 

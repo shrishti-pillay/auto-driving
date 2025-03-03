@@ -1,8 +1,0 @@
-setup.py
-src/classes/__init__.py
-src/classes/car.py
-src/classes/grid.py
-src/my_project.egg-info/PKG-INFO
-src/my_project.egg-info/SOURCES.txt
-src/my_project.egg-info/dependency_links.txt
-src/my_project.egg-info/top_level.txt
