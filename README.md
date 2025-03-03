@@ -15,23 +15,30 @@ A list of commands can be issued to each car, which can be one of three commands
 
 If a car tries to move beyond the boundary of the field, the command is ignored, and the car stays in its current position. For example, if a car at position (0,0) is facing South and receives an F command, the command will be ignored as it would take the car beyond the boundary of the field.
 
-Users can interact with your simulation program through the command line interface.
+Users can interact with the simulation program through the command line interface.
 
 ## 2. Installation
 
 ### 2.1 Pre-requisites
 
-Python version **3.10** and above.
+- Python version **3.8** and above.
+- `pip` (Python package installer)
 
 ### 2.2 Setup 
 
-Please create a new virtual environment in the main project directory. 
+1. Clone the git repository
 
 ```shell
-python3.10 -m venv .env
+git clone https://github.com/yourusername/auto-driving.git
 ```
 
-To activate the environment please use the following command:
+2. Create a new virtual environment in the main project directory `auto-driving/`. 
+
+```shell
+python3 -m venv .env
+```
+
+3. Activate the environment with the command:
 
 ```shell
 source .env/bin/activate
@@ -39,10 +46,10 @@ source .env/bin/activate
 
 You are now running the virtual environment. 
 
-Please install the auto driving car simulation package using the following command at the main directory. 
+4. Install the auto driving car simulation package using the following command at the main directory. 
 
 ```shell
-python3.10 -m pip install -e .
+python3 -m pip install -e .
 ```
 
 ## 3. Execution
@@ -50,8 +57,80 @@ python3.10 -m pip install -e .
 You can now run the simulation by using the following command: 
 
 ```shell
-python3.10 src/main.py
+python3 src/main.py
 ```
+
+### 3.1. Initialise the Grid
+
+You will be first asked to enter the grid dimensions:
+
+```shell
+Please enter the width and height of the simulation field in x y format:
+
+> 10 10
+```
+
+### 3.2 Add cars
+
+You will be then asked to name your first car. 
+
+```shell
+Please enter the name of the car:
+> A
+```
+
+You will then be asked to add initial position and direction of the car. 
+
+```
+Please enter initial position of car A in x y Direction format:
+> 1 2 N
+```
+
+You will then be asked to enter car commands: 
+
+```
+Please enter the commands for car A:
+> FFRFFFFRRL
+```
+
+You will then view the list of cars in the grid. 
+
+```
+Your current list of cars are:
+- A, (1,2) N, FFRFFFFRRL
+```
+
+You can then choose to either continue adding more cars or run the simulation, 
+
+### 3.3 Add more cars or run simulation
+
+```shell
+Please choose from the following options:
+[1] Add a car to field
+[2] Run simulation
+```
+If you choose 1, the above steps will be repeated.  
+If you choose 2, the simulation will run and display the results.
+
+
+### 3.4 Simulation results
+```
+After simulation, the result is:
+- A, (5,4) S
+```
+
+And then you can either start over or exit the simulation. 
+
+```shell
+Please choose from the following options:
+[1] Start over
+[2] Exit
+```
+
+If you choose 1, the simulation will start over from step 3.1. where you initialise the grid. All the past data will be gone. 
+
+If you choose 2, you exit the simulation. 
+
 
 ## 4. Testing
 
