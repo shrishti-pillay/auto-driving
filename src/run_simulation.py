@@ -50,15 +50,13 @@ def run_simulation(grid) -> None:
                     new_y += forward
 
                 # Validate new coordinates within grid boundaries
-                if validate_coordinates(new_x, new_y, grid.max_x, grid.max_y):
+                result = validate_coordinates(new_x, new_y, grid.max_x, grid.max_y).get('result', False)
+                if result:
                     car.x, car.y = new_x, new_y
 
         # Check for collisions
         car_coord_groups = defaultdict(list)
         for car in grid.cars:
-            if car in cars_list and car.moves_queue.empty():
-                cars_list.remove(car)  # Remove cars with no moves left
-
             # Group cars by coordinates
             car_coord_groups[(car.x, car.y)].append(car)
 
@@ -75,6 +73,11 @@ def run_simulation(grid) -> None:
                             "step": car.moves_count,
                         }
                         cars_list.remove(car)
+                        
+        # remove car if there are no more moves
+        for car in grid.cars:
+            if car in cars_list and car.moves_queue.empty():
+                cars_list.remove(car)
 
     # Display simulation results
     print("After simulation, the result is:")

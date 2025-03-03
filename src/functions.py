@@ -29,12 +29,23 @@ def initialize_grid() -> Grid:
         prompt=INITIALIZE_GRID, validation_func=validate_grid_dimensions, split_count=2
     )
 
-    # Create grid
-    grid = Grid(int(max_x), int(max_y))
+    # Create grid, subtract 1 from limits 
+    grid = Grid(int(max_x)-1, int(max_y)-1)
 
     print(f"\nYou have created a field of {max_x} x {max_y}\n")
     return grid
 
+def get_car_name(grid: Grid):
+    """ Get car name."""
+
+    name = get_valid_input(
+        prompt=CAR_NAME,
+        validation_func=validate_car_name,
+        split_count=1,
+        names = [x.name for x in grid.cars if grid.cars]
+    )
+
+    return name[0]
 
 def get_x_y_direction(name: str, grid: Grid) -> list:
     """Get x, y, and direction for the car."""
@@ -56,7 +67,6 @@ def get_moves(name: str) -> str:
         validation_func=validate_car_commands,
         split_count=1,
     )
-
     return moves[0]
 
 
@@ -67,7 +77,7 @@ def add_car(grid: Grid) -> None:
     """
 
     # get car name
-    name = input(CAR_NAME)
+    name = get_car_name(grid)
 
     # get x y direction of car
     x, y, direction = get_x_y_direction(name, grid)

@@ -7,13 +7,13 @@ from unittest.mock import patch
     [
         pytest.param(
             ["10 10"], 
-            10, 10, 
+            9, 9, 
             "Welcome to Auto Driving Car Simulation.\n\n\n\nYou have created a field of 10 x 10\n\n",
             id="valid_grid"
             ),
         pytest.param(
             ["101", "10 10"], 
-            10, 10, 
+            9, 9, 
             "Welcome to Auto Driving Car Simulation.\n\n\nInvalid input. Please try again\n\n\nYou have created a field of 10 x 10\n\n",
             id="invalid_grid"
         ),
