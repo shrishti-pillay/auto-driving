@@ -1,43 +1,60 @@
+import pytest
 from classes.car import Car
 from classes.grid import Grid
 from functions import get_x_y_direction, get_moves
-
 from unittest.mock import patch
 
-def test_car_x_y_direction_1():
-    with patch("builtins.input", side_effect=["1 2 N"]):
-        #setup test environment
-        x, y, direction = get_x_y_direction(Car('A'), Grid(10,10))
-        
-        assert x == '1'
-        assert y == '2'
-        assert direction == 'N'
-
-def test_car_x_y_direction_2(capsys):
-    with patch("builtins.input", side_effect=["1 24 N", "1 2 N"]):
-        #setup test environment
-        x, y, direction = get_x_y_direction(Car('A'), Grid(10,10))
-        
+@pytest.mark.parametrize(
+    "inputs, expected_x, expected_y, expected_direction, expected_output",
+    [
+        pytest.param(
+            ["1 2 N"], "1", "2", "N", "", 
+            id="valid_x_y_direction"
+        ),
+        pytest.param(
+            ["1 24 N", "1 2 N"], "1", "2", "N", 
+            "Invalid input. Please try again\n\n",
+            id="invalid_y"
+        ),
+        pytest.param(
+            ["1 2 U", "1 2 N"], "1", "2", "N", 
+            "Invalid input. Please try again\n\n",
+            id="invalid_direction"
+        ),
+    ]
+)
+def test_car_x_y_direction(capsys, inputs, expected_x, expected_y, expected_direction, expected_output):
+    """Test car x, y direction with valid and invalid inputs."""
+    with patch("builtins.input", side_effect=inputs):
+        x, y, direction = get_x_y_direction(Car('A'), Grid(10, 10))
         captured = capsys.readouterr()
-
-        assert x == '1'
-        assert y == '2'
-        assert direction == 'N'
-        assert captured.out == "Invalid input. Please try again\n\n"
-
-def test_car_moves_1():
-    with patch("builtins.input", side_effect=["FFRFFFFRRL"]):
-        #setup test environment
-        moves = get_moves(Car('A'))
         
-        assert moves == "FFRFFFFRRL"
+        assert x == expected_x
+        assert y == expected_y
+        assert direction == expected_direction
+        assert captured.out == expected_output
 
-def test_car_moves_2(capsys):
-    with patch("builtins.input", side_effect=["FFRFFWFRRL", "FFRFFFFRRL"]):
-        #setup test environment
+@pytest.mark.parametrize(
+    "inputs, expected_moves, expected_output",
+    [
+        pytest.param(
+            ["FFRFFFFRRL"], 
+            "FFRFFFFRRL", "",
+            id="valid_moves"
+        ),
+        pytest.param(
+            ["FFRFFWFRRL", "FFRFFFFRRL"], 
+            "FFRFFFFRRL", 
+            "Invalid input. Please try again\n\n",
+            id="invalid_moves"
+        ),
+    ],
+)
+def test_car_moves(capsys, inputs, expected_moves, expected_output):
+    """Test car move commands with valid and invalid inputs."""
+    with patch("builtins.input", side_effect=inputs):
         moves = get_moves(Car('A'))
-        
         captured = capsys.readouterr()
-
-        assert moves == "FFRFFFFRRL"
-        assert captured.out == "Invalid input. Please try again\n\n"
+        
+        assert moves == expected_moves
+        assert captured.out == expected_output

@@ -1,0 +1,76 @@
+# -----------------
+# General Python
+# -----------------
+src/__pycache__/
+src/classes/__pycache__/
+tests/__pycache__/
+*.py[cod]
+*.so
+*.dll
+*.dylib
+*.pyd
+*.swp
+*.pytest_cache/
+
+# -----------------
+# Virtual Environments
+# -----------------
+venv/
+.env/
+.envrc
+.venv/
+
+# -----------------
+# Logs & Temporary Files
+# -----------------
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# -----------------
+# Testing & Coverage
+# -----------------
+.coverage
+.tox/
+.pytest_cache/
+htmlcov/
+
+# -----------------
+# Package Management
+# -----------------
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# -----------------
+# Jupyter Notebooks
+# -----------------
+.ipynb_checkpoints/
+
+# -----------------
+# IDE / Editor Files
+# -----------------
+.vscode/
+.idea/
+*.iml
+*.sublime-workspace
+
+# -----------------
+# Build Artifacts
+# -----------------
+build/
+dist/
+src/*.egg-info/
+.eggs/
+*.manifest
+*.spec
+
+# -----------------
+# Migrations (Django, Flask, etc.)
+# -----------------
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.orig
+*/migrations/*.log

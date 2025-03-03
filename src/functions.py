@@ -5,7 +5,9 @@ from run_simulation import *
 from validations import *
 
 
-INITIALIZE_GRID = "Please enter the width and height of the simulation field in x y format:\n"
+INITIALIZE_GRID = (
+    "Please enter the width and height of the simulation field in x y format:\n"
+)
 
 CAR_NAME = "Please enter the name of the car:\n"
 
@@ -17,14 +19,9 @@ OPTIONS_MENU = "Please choose from the following options:\n\n[1] Add a car to th
 
 
 def initialize_grid() -> Grid:
-    '''
-    This function will get the x y field of the grid and initialize the grid object
+    """Initialize the grid by prompting the user for width and height."""
 
-    Args: None
-    Returns: None
-
-    '''
-    # 1
+    # Welcome statement
     print("Welcome to Auto Driving Car Simulation.\n\n")
 
     # get x y for grid
@@ -38,93 +35,71 @@ def initialize_grid() -> Grid:
     print(f"\nYou have created a field of {max_x} x {max_y}\n")
     return grid
 
-def get_x_y_direction(car: Car, grid: Grid) -> list:
-    ''' 
-    Get x y direction of car 
-    
-    Args:
-        car: Car()
-        grid: Grid()
 
-    Returns: 
-        list with [x, y, direction]
-    '''
+def get_x_y_direction(name: str, grid: Grid) -> list:
+    """Get x, y, and direction for the car."""
+
     return get_valid_input(
-        prompt=CAR_X_Y_DIRECTION.format(car.name),
+        prompt=CAR_X_Y_DIRECTION.format(name),
         validation_func=validate_car_x_y_direction,
         split_count=3,
         max_x=grid.max_x,
         max_y=grid.max_y,
     )
 
-def get_moves(car: Car) -> str:
-    ''' 
-    Get car commands
 
-    Args:
-        car: Car()
-        grid: Grid()
+def get_moves(name: str) -> str:
+    """Get car commands"""
 
-    Returns: 
-        moves: str
-    '''
     moves = get_valid_input(
-        prompt=CAR_COMMANDS.format(car.name),
+        prompt=CAR_COMMANDS.format(name),
         validation_func=validate_car_commands,
         split_count=1,
     )
 
     return moves[0]
 
-def add_car(grid: Grid) -> None:
-    '''
-    This function adds the first car to the grid, and any subsequent cars if user chooses to.
-    
-    Args: 
-        grid: The current grid
 
-    Returns: None
-    
-    '''
+def add_car(grid: Grid) -> None:
+    """
+    This function adds the first car to the grid, and any
+    subsequent cars if user chooses to.
+    """
 
     # get car name
     name = input(CAR_NAME)
 
     # get x y direction of car
-    x, y, direction = get_x_y_direction(car, grid)
+    x, y, direction = get_x_y_direction(name, grid)
 
     # get car angle form direction
-    angle = DIRECTION[car.direction]
+    angle = DIRECTION[direction]
 
-    moves = get_moves(car)
+    # get car commands (moves)
+    moves = get_moves(name)
 
-    # create car with above user inputs
-    car = Car(name, x, y, angle, direction, moves)
+    # create car
+    car = Car(name, int(x), int(y), direction, angle, moves)
 
     # add car to grid
     grid.add_cars(car)
 
+    # show all the cars in the grid
     print(f"Your current list of cars are:\n")
-
     for car in grid.cars:
-        print(f" - {car.name}, ({car.x},{car.y}), {car.direction}, {car.moves}\n")
+        print(f"- {car.name}, ({car.x},{car.y}), {car.direction}, {car.moves}\n")
 
+    # show options menu (add more cars or run simulation)
     options_set(grid)
 
 
 def options_set(grid: Grid) -> None:
-    '''
-    This function asks the user to choose to either add more cars, or run simulation
-    
-    Args: 
-        grid: The current Grid
-        
-    Returns: None
-    
-    '''
+    """
+    This function asks the user to choose to
+    either add more cars, or run simulation
+    """
     options_set = {
         "1": {"func": add_car, "kwargs": grid},
         "2": {"func": run_simulation, "kwargs": grid},
     }
-    choice = input(OPTIONS_MENU)
-    validate_options_set(choice=choice, options_set=options_set)
+    validate_options_set(prompt=OPTIONS_MENU, options_set=options_set)

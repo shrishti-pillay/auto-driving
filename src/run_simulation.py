@@ -1,10 +1,10 @@
 from collections import defaultdict
 from validations import validate_coordinates
 
-# map moves to angle of rotation of car
+# Map moves to angle of rotation of car
 ANGLE = {"L": -90, "R": 90}
 
-# map of angle to movement along X/Y axis
+# Map of angle to movement along X/Y axis
 MOVEMENT = {
     0: {"axis": "y", "F": 1, "direction": "N"},
     90: {"axis": "x", "F": 1, "direction": "E"},
@@ -12,89 +12,74 @@ MOVEMENT = {
     180: {"axis": "y", "F": -1, "direction": "S"},
 }
 
+# Map of Direction to Angle
 DIRECTION = {"N": 0, "E": 90, "W": 270, "S": 180}
 
 
-def run_simulation(grid):
+def run_simulation(grid) -> None:
+    """Runs the car movement simulation on the grid."""
 
+    # Create list of cars
     cars_list = list(grid.cars)
 
     while cars_list:
-
         for car in cars_list:
-
-            # get next move of the car
+            # Get next move of the car
             move = car.get_next_move()
 
-            # increment moves count by 1
+            if move is None:
+                continue  # Skip if no moves left
+
+            # Increment moves count by 1
             car.moves_count += 1
 
-            if move in ["L", "R"]:
-                # get angle to rotate the car
-                car.angle = (car.angle + (ANGLE[move])) % 360
-                # get direction based on angle
+            if move in ANGLE:
+                # Update car's angle and direction
+                car.angle = (car.angle + ANGLE[move]) % 360
                 car.direction = MOVEMENT[car.angle]["direction"]
 
             elif move == "F":
-                # get the axis that the car is facing towards
-                axis, forward, direction = MOVEMENT[car.angle].values()
+                # Get movement details
+                axis, forward, _ = MOVEMENT[car.angle].values()
 
-                # get new car coordinates
-                new_x_coord = car.x
-                new_y_coord = car.y
+                # Calculate new coordinates
+                new_x, new_y = car.x, car.y
                 if axis == "x":
-                    new_x_coord += forward
+                    new_x += forward
                 else:
-                    new_y_coord += forward
+                    new_y += forward
 
-                # check if new coordinates are out the grid
+                # Validate new coordinates within grid boundaries
+                if validate_coordinates(new_x, new_y, grid.max_x, grid.max_y):
+                    car.x, car.y = new_x, new_y
 
-                # if they are not out of range, update coordinates
-                if validate_coordinates(new_x_coord, new_y_coord, grid.max_x, grid.max_y):
-
-                    # update car cordinates
-                    car.x = new_x_coord
-                    car.y = new_y_coord
-
-        # check if any of the cars collided
-        # get all cars x,y coordinates
-
-        # for the purpose of checking collision, we need to check with ALL other cars, if the current car has collided with them, though they may have previously collided and removed from cars_queue
-
-        # create groupings based on the coordinates
+        # Check for collisions
         car_coord_groups = defaultdict(list)
-
         for car in grid.cars:
-
-            # remove car from cars_list if no more moves left
             if car in cars_list and car.moves_queue.empty():
-                cars_list.remove(car)
+                cars_list.remove(car)  # Remove cars with no moves left
 
-            # group the cars that have the same coordinates
+            # Group cars by coordinates
             car_coord_groups[(car.x, car.y)].append(car)
 
-        if car_coord_groups:
-            for coord, cars in car_coord_groups.items():
-                if len(cars) > 1:
-                    for car in cars:
-                        # set collision to true
+        # Process collisions
+        for cars in car_coord_groups.values():
+            if len(cars) > 1:
+                for car in cars:
+                    if car in cars_list:
                         car.collision = True
-
-                        # add collision info to car
                         car.collision_info = {
                             "collided_with": ",".join(
                                 [x.name for x in cars if x != car]
                             ),
                             "step": car.moves_count,
                         }
-                        if car in cars_list:
-                            cars_list.remove(car)
+                        cars_list.remove(car)
 
-    # Show result after simulation
-    print("\nAfter simulation, the result is:")
-
+    # Display simulation results
+    print("After simulation, the result is:")
     for car in grid.cars:
-        if car.collision == True:
+        if car.collision:
             print(
                 f"- {car.name}, collides with {car.collision_info['collided_with']} at ({car.x},{car.y}) at step {car.collision_info['step']}"
             )
