@@ -244,7 +244,7 @@ This has been tested using `test_simulation[three_cars_1]` and `test_simulation[
 
 ## 6. Improvements
 
-### 6.1 Simulation workflow
+### 6.1. Simulation workflow
 
 If the grid has just been initialized, the options menu below: 
 
@@ -262,7 +262,7 @@ Please enter the name of the car:
 
 This is to avoid the scenario when the user chooses 2 to run the simulation when there are no cars in the grid. 
 
-### Input validation. 
+### 6.2. Input validation. 
 
 Input validation has been implemented for every input. Below is a list of all the input validations, and the corresponding error statement: 
 
