@@ -10,17 +10,13 @@ POST_SIM_OPTIONS = (
 
 
 def delete_grid(grid):
-    """
-    This function will remove all cars in grid and start simulation
-    """
+    """Remove all cars in grid and start simulation"""
     grid.reset_grid()
     start_simulation()
 
 
 def post_simulation_options(grid):
-    """
-    This function shows the post simulation options menu
-    """
+    """Show post simulation options menu"""
     options_set = {
         "1": {"func": delete_grid, "kwargs": grid},
         "2": {"func": sys.exit, "kwargs": None},

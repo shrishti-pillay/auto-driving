@@ -294,7 +294,7 @@ Input validation has been implemented for every input. Below is a list of all th
     Test file: tests/test_options_validation.py
     Test names: options_set_valid, options_set_invalid, post_sim_options_valid, post_sim_options_invalid
 
-## Supporting documents
+## 7. Supporting documents
 
 I have added additional notes and flowcharts to represent the simulation workflow as it helped me to understand the assignment before implementing the code. 
 

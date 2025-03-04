@@ -50,8 +50,7 @@ def run_simulation(grid) -> None:
                     new_y += forward
 
                 # Validate new coordinates within grid boundaries
-                result = validate_coordinates(new_x, new_y, grid.max_x, grid.max_y).get('result', False)
-                if result:
+                if validate_coordinates(new_x, new_y, grid.max_x, grid.max_y):
                     car.x, car.y = new_x, new_y
 
         # Check for collisions
