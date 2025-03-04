@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="my_project",
+    name="auto_driving",
     version="0.1",
     packages=find_packages(where="src"),
     install_requires=[
