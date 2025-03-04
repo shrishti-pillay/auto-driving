@@ -104,7 +104,7 @@ You can then choose to either continue adding more cars or run the simulation,
 
 ### 3.3 Add more cars or run simulation
 
-```shell
+```
 Please choose from the following options:
 [1] Add a car to field
 [2] Run simulation
@@ -121,7 +121,7 @@ After simulation, the result is:
 
 And then you can either start over or exit the simulation. 
 
-```shell
+```
 Please choose from the following options:
 [1] Start over
 [2] Exit
@@ -136,7 +136,7 @@ If you choose 2, you exit the simulation.
 
 To run all the tests included, please run the following command in the main project directory:
 
-```shell
+```
 pytest -vv
 ```
 
@@ -144,7 +144,7 @@ You can increase or reduce the verbosity of the testing set by removing/adding t
 
 To run a test simulation, please run the following command in the main project directory:
 
-```shell
+```
 pytest tests/test_simulation.py
 ```
 
