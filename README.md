@@ -64,7 +64,7 @@ python3 src/main.py
 
 You will be first asked to enter the grid dimensions:
 
-```shell
+```
 Please enter the width and height of the simulation field in x y format:
 
 > 10 10
@@ -74,7 +74,7 @@ Please enter the width and height of the simulation field in x y format:
 
 You will be then asked to name your first car. 
 
-```shell
+```
 Please enter the name of the car:
 > A
 ```
