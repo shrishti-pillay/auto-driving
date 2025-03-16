@@ -64,7 +64,7 @@ python3 src/main.py
 
 You will be first asked to enter the grid dimensions:
 
-```shell
+```
 Please enter the width and height of the simulation field in x y format:
 
 > 10 10
@@ -74,7 +74,7 @@ Please enter the width and height of the simulation field in x y format:
 
 You will be then asked to name your first car. 
 
-```shell
+```
 Please enter the name of the car:
 > A
 ```
@@ -104,7 +104,7 @@ You can then choose to either continue adding more cars or run the simulation,
 
 ### 3.3 Add more cars or run simulation
 
-```shell
+```
 Please choose from the following options:
 [1] Add a car to field
 [2] Run simulation
@@ -121,7 +121,7 @@ After simulation, the result is:
 
 And then you can either start over or exit the simulation. 
 
-```shell
+```
 Please choose from the following options:
 [1] Start over
 [2] Exit
@@ -136,7 +136,7 @@ If you choose 2, you exit the simulation.
 
 To run all the tests included, please run the following command in the main project directory:
 
-```shell
+```
 pytest -vv
 ```
 
@@ -144,7 +144,7 @@ You can increase or reduce the verbosity of the testing set by removing/adding t
 
 To run a test simulation, please run the following command in the main project directory:
 
-```shell
+```
 pytest tests/test_simulation.py
 ```
 
