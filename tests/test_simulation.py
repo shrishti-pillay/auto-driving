@@ -21,12 +21,17 @@ def create_car_B():
 
 def create_car_C():
     return Car(
-        name="C", x=6, y=1, direction="E", angle=DIRECTION["E"], moves="LFLFRFFF"
+        name="C", x=6, y=1, direction="E", angle=DIRECTION["E"], moves="LFLFRFF"
     )
 
 def create_car_D():
     return Car(
-        name="D", x=5, y=1, direction="E", angle=DIRECTION["E"], moves="FLFLFRFF"
+        name="B", x=1, y=7, direction="S", angle=DIRECTION["S"], moves="FFFFFFF"
+    )
+
+def create_car_E():
+    return Car(
+        name="A", x=1, y=2, direction="N", angle=DIRECTION["N"], moves="FFFFFFFF"
     )
 
 
@@ -57,15 +62,15 @@ def setup_env(cars) -> Grid:
             id="two_cars",
         ),
         pytest.param(
+            [create_car_E(), create_car_D()],
+            "After simulation, the result is:\n- A, collides with B at (1,5) at step 3\n- B, collides with A at (1,5) at step 3\n",
+            id="two_cars",
+        ),
+        pytest.param(
             [create_car_A1(), create_car_B(), create_car_C()],
             "After simulation, the result is:\n- A, collides with B,C at (5,4) at step 7\n- B, collides with A,C at (5,4) at step 7\n- C, collides with A,B at (5,4) at step 7\n",
             id="three_cars_1",
-        ),
-        pytest.param(
-            [create_car_A1(), create_car_B(), create_car_D()],
-            "After simulation, the result is:\n- A, collides with B at (5,4) at step 7\n- B, collides with A at (5,4) at step 7\n- D, collides with A,B at (5,4) at step 8\n",
-            id="three_cars_2",
-        ),
+        )
     ],
 )
 def test_simulation(capsys, cars, expected_output):

@@ -23,15 +23,18 @@ def run_simulation(grid) -> None:
     cars_list = list(grid.cars)
 
     while cars_list:
+
+        # increment moves count before each iteration
+        for car in grid.cars:
+            if car in cars_list: 
+                car.moves_count += 1
+
         for car in cars_list:
             # Get next move of the car
             move = car.get_next_move()
 
             if move is None:
                 continue  # Skip if no moves left
-
-            # Increment moves count by 1
-            car.moves_count += 1
 
             if move in ANGLE:
                 # Update car's angle and direction
@@ -53,26 +56,26 @@ def run_simulation(grid) -> None:
                 if validate_coordinates(new_x, new_y, grid.max_x, grid.max_y):
                     car.x, car.y = new_x, new_y
 
-        # Check for collisions
-        car_coord_groups = defaultdict(list)
-        for car in grid.cars:
-            # Group cars by coordinates
-            car_coord_groups[(car.x, car.y)].append(car)
+                # Check for collisions
+                car_coord_groups = defaultdict(list)
+                for car in grid.cars:
+                    # Group cars by coordinates
+                    car_coord_groups[(car.x, car.y)].append(car)
 
-        # Process collisions
-        for cars in car_coord_groups.values():
-            if len(cars) > 1:
-                for car in cars:
-                    if car in cars_list:
-                        car.collision = True
-                        car.collision_info = {
-                            "collided_with": ",".join(
-                                [x.name for x in cars if x != car]
-                            ),
-                            "step": car.moves_count,
-                        }
-                        cars_list.remove(car)
-                        
+                # Process collisions
+                for cars in car_coord_groups.values():
+                    if len(cars) > 1:
+                        for car in cars:
+                            if car in cars_list:
+                                car.collision = True
+                                car.collision_info = {
+                                    "collided_with": ",".join(
+                                        [x.name for x in cars if x != car]
+                                    ), 
+                                    "step": car.moves_count,
+                                }
+                                cars_list.remove(car)
+ 
         # remove car if there are no more moves
         for car in grid.cars:
             if car in cars_list and car.moves_queue.empty():
